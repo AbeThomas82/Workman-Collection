@@ -26,20 +26,20 @@ VALUES
 
 SELECT * FROM roles;
 
-INSERT INTO roster (id, first_name, last_name, title, department, salary, manager)
+INSERT INTO roster (id, first_name, last_name, roles, manager)
 VALUES
-    (1, "J. Jonah", "Jameson", "Sales Lead", "Sales", 150000, ""),
-    (2, "Jenny", "Jones", "HR Manager", "Human Resources", 100000, ""),
-    (3, "Jamaal", "Wilkes", "Sr. Software Engineer", "Information Technology", 80000, "Domingo Chavez"),
-    (4, "Giuseppe", "Garibaldi", "Jr. Software Engineer", "Information Technology", 50000, "Domingo Chavez"),
-    (5, "Joan", "Jett", "Receptionist", "Front Desk", 35000, "Vijaya Patel"),
-    (6, "John", "Smith", "HR Clerk", "Human Resources", 45000, "Jenny Jones"),
-    (7, "Vijaya", "Patel", "Head Receptionist", "Front Desk", 50000, ""),
-    (8, "Domingo", "Chavez", "Lead Engineer", "Information Technology", 120000, ""),
-    (9, "Bernie", "Madoff", "Accounting Manager", "Accounting", 100000, ""),
-    (10, "Canine", "St. Bernard", "Sr. Accountant", "Accounting", 90000, "Bernie Madoff"),
-    (11, "Lois", "Lane", "Sr. Salesman", "Sales", 95000, "J. Jonah Jameson"),
-    (12, "Gil", "Chesterton", "Jr. Accountant", "Accounting", 60000, "Bernie Madoff"),
-    (13, "Johnny", "Chan", "Jr. Salesman", "Sales", 50000, "J. Jonah Jameson");
+    (1, "J. Jonah", "Jameson",1, NULL),
+    (2, "Jenny", "Jones",10, NULL),
+    (8, "Domingo", "Chavez", 4, NULL),
+    (3, "Jamaal", "Wilkes", 4, 8),
+    (4, "Giuseppe", "Garibaldi", 6,8),
+    (7, "Vijaya", "Patel", 12, NULL),
+    (5, "Joan", "Jett", 13, 7),
+    (6, "John", "Smith", 11,2),
+    (9, "Bernie", "Madoff", 7, NULL),
+    (10, "Canine", "St. Bernard", 8, 9),
+    (11, "Lois", "Lane", 2, 1),
+    (12, "Gil", "Chesterton", 9, 9),
+    (13, "Johnny", "Chan", 3, 1);
 
 SELECT * FROM roster;

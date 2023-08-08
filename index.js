@@ -73,3 +73,21 @@ function viewRoles(){
         start_menu()
     })
 }
+
+function addDepartment(){
+    inquirer.prompt([
+        {
+            type:"input",
+            message:"Enter new Deaprtment name: ",
+            name:"department"
+
+        }
+    ]).then(response =>{
+        db.query("INSERT INTO departments (name) VALUES (?);",response.department,function(err,result){
+            if(err) throw err;
+            console.log(result)
+            start_menu()
+        })
+    })
+}
+
