@@ -9,7 +9,7 @@ const db = mysql.createConnection({
     database: "employee_db"
 })
 db.connect(() => {
-    console.log("Employee Tacker")
+    console.log("Employee Tracker")
     start_menu()
 })
 
@@ -19,7 +19,7 @@ function start_menu() {
             type: "list",
             message: "What would you like to do?",
             name: "option",
-            choices: ["View Employees", "View Departments", "View Roles", "Add employee", "Add department", "Add roles", "Update employee role", "Exit application"]
+            choices: ["View Employees", "View Departments", "View Roles", "Add Employee", "Add Department", "Add Roles", "Update Employee Role", "Exit Application"]
         }
     ]).then(response => {
         switch (response.option) {
@@ -35,7 +35,7 @@ function start_menu() {
             case "Add Employee":
                 addEmployee();
                 break;
-            case "Add department":
+            case "Add Department":
                 addDepartment();
                 break;
             case "Add Roles":
@@ -44,7 +44,7 @@ function start_menu() {
             case "Update Employee Role":
                 updateEmployee();
                 break;
-            case "Exit application":
+            case "Exit Application":
                 db.end()
                 process.exit(0);
                
@@ -74,11 +74,33 @@ function viewRoles(){
     })
 }
 
+function addEmployee(){
+    inquirer.prompt([
+        {
+            type:"input",
+            message:"Enter employee first name: ",
+            name:"first_name",
+
+            type:"input",
+            message:"Enter employee last name: ",
+            name:"last_name"
+
+
+        }
+    ]).then(response =>{
+        db.query("INSERT INTO roster (name) VALUES (?);",response.name,function(err,result){
+            if(err) throw err;
+            console.log(result)
+            start_menu()
+        })
+    })
+}
+
 function addDepartment(){
     inquirer.prompt([
         {
             type:"input",
-            message:"Enter new Deaprtment name: ",
+            message:"Enter new department name: ",
             name:"department"
 
         }

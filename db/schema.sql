@@ -19,5 +19,5 @@ CREATE TABLE roster(
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     roles INT references roles(id),
-    manager INT referenCes roster(id) ON DELETE SET NULL
+    manager INT references roster(id) ON DELETE SET NULL
 );
