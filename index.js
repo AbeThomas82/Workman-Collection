@@ -80,15 +80,14 @@ function addEmployee(){
             type:"input",
             message:"Enter employee first name: ",
             name:"first_name",
-
+        },
+        {
             type:"input",
             message:"Enter employee last name: ",
-            name:"last_name"
-
-
-        }
+            name:"last_name",
+        },
     ]).then(response =>{
-        db.query("INSERT INTO roster (name) VALUES (?);",response.name,function(err,result){
+        db.query("INSERT INTO roster (first_name, last_name) VALUES (?,?);",[response.first_name,response.last_name],function(err,result){
             if(err) throw err;
             console.log(result)
             start_menu()
@@ -113,3 +112,29 @@ function addDepartment(){
     })
 }
 
+function addRoles(){
+    inquirer.prompt([
+        {
+            type:"input",
+            message:"Name of role: ",
+            name:"title"
+
+        },
+        {
+            type:"input",
+            message:"Department of position:",
+            name:"department"
+        },
+        {
+            type:"input",
+            message:"Salary for position: ",
+            name:"salary"
+        }
+    ]).then(response =>{
+        db.query("INSERT INTO roles (title, department, salary) VALUES (?,?,?);",[response.title,response.department,response.salary],function(err,result){
+            if(err) throw err;
+            console.log(result)
+            start_menu()
+        })
+    })
+}
