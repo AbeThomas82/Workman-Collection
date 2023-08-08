@@ -19,9 +19,9 @@ VALUES
     (7, "Accounting Manager", "Accounting", 100000),
     (8, "Sr. Accountant", "Accounting", 90000),
     (9, "Jr. Accountant", "Accounting", 60000),
-    (8, "HR Manager", "Human Resources", 100000),
-    (9, "HR Clerk", "Human Resources", 45000),
-    (10, "Head Receptionist", "Front Desk", 50000),
-    (11, "Receptionist", "Front Desk", 35000);
+    (10, "HR Manager", "Human Resources", 100000),
+    (11, "HR Clerk", "Human Resources", 45000),
+    (12, "Head Receptionist", "Front Desk", 50000),
+    (13, "Receptionist", "Front Desk", 35000);
 
 SELECT * FROM roles;
