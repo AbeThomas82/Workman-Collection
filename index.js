@@ -138,3 +138,26 @@ function addRoles(){
         })
     })
 }
+
+function updateEmployee(){
+    inquirer.prompt([
+        {
+            type:"list",
+            message:"Select employee: ",
+            name: "option",
+            choices: ["J. Jonah Jameson", "Jenny Jones", "Domingo Chavez", "Jamaal Wilkes", "Giuseppe Garibaldi", "Vijaya Patel", "Joan Jett", "John Smith", "Bernie Madoff", "Canine St. Bernard", "Lois Lane", "Gil Chesterton", "Johnny Chan"]
+
+        },
+        {
+            type: "input",
+            message: "New position title: ",
+            name: "title"   
+        }
+    ]).then(response =>{
+        db.query("INSERT INTO roster (name) VALUES (?,?);",[response.option,response.title],function(err,result){
+            if(err) throw err;
+            console.log(result)
+            start_menu()
+        })
+    })
+}
