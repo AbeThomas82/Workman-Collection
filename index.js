@@ -146,7 +146,6 @@ function updateEmployee(){
             message:"Select employee: ",
             name: "option",
             choices: ["J. Jonah Jameson", "Jenny Jones", "Domingo Chavez", "Jamaal Wilkes", "Giuseppe Garibaldi", "Vijaya Patel", "Joan Jett", "John Smith", "Bernie Madoff", "Canine St. Bernard", "Lois Lane", "Gil Chesterton", "Johnny Chan"]
-
         },
         {
             type: "input",
@@ -154,7 +153,9 @@ function updateEmployee(){
             name: "title"   
         }
     ]).then(response =>{
-        db.query("INSERT INTO roster (name) VALUES (?,?);",[response.option,response.title],function(err,result){
+        let nameArray = response.option.split(" ");
+        console.log(nameArray);
+        db.query("INSERT INTO roster (first_name,last_name,roles) VALUES (?,?,?);",[nameArray[0],nameArray[1],response.title],function(err,result){
             if(err) throw err;
             console.log(result)
             start_menu()
