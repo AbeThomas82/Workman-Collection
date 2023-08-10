@@ -75,6 +75,13 @@ function viewRoles(){
 }
 
 function addEmployee(){
+    db.query("SELECT * FROM employee_db.roster;",function(err,data){
+        let managerArray = [];
+        if(err) throw err;
+        for(let i = 0; i < data.length; i++){
+            managerArray.push(data[i].first_name + " " + data[i].last_name)
+        }
+        managerArray.push("None")
     inquirer.prompt([
         {
             type:"input",
@@ -92,11 +99,17 @@ function addEmployee(){
             name:"roles",
         },
         {
-            type:"input",
-            message:"Enter manager name: ",
+            type:"list",
+            message:"Enter employee manager: ",
             name:"manager",
+            choices: managerArray
         }
     ]).then(response =>{
+        //if the employee has no manager, set the manager to null
+        if(response.manager === "None"){
+            response.manager = null;
+        }
+        
         db.query("INSERT INTO roster (first_name, last_name, roles, manager) VALUES (?,?,?,?);",[response.first_name,response.last_name,response.roles,response.manager],function(err,result){
             if(err) throw err;
             console.log(result)
@@ -104,6 +117,7 @@ function addEmployee(){
         })
     })
 }
+)}
 
 function addDepartment(){
     inquirer.prompt([
