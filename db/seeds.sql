@@ -28,7 +28,7 @@ SELECT * FROM roles;
 
 INSERT INTO roster (id, first_name, last_name, roles, manager)
 VALUES
-    (1, "J. Jonah", "Jameson",1, NULL),
+    (1, "Jonah", "Jameson",1, NULL),
     (2, "Jenny", "Jones",10, NULL),
     (8, "Domingo", "Chavez", 4, NULL),
     (3, "Jamaal", "Wilkes", 4, 8),
