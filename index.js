@@ -86,8 +86,18 @@ function addEmployee(){
             message:"Enter employee last name: ",
             name:"last_name",
         },
+        {
+            type:"input",
+            message:"Enter employee role: ",
+            name:"roles",
+        },
+        {
+            type:"input",
+            message:"Enter manager name: ",
+            name:"manager",
+        }
     ]).then(response =>{
-        db.query("INSERT INTO roster (first_name, last_name) VALUES (?,?);",[response.first_name,response.last_name],function(err,result){
+        db.query("INSERT INTO roster (first_name, last_name, roles, manager) VALUES (?,?,?,?);",[response.first_name,response.last_name,response.roles,response.manager],function(err,result){
             if(err) throw err;
             console.log(result)
             start_menu()
@@ -145,7 +155,7 @@ function updateEmployee(){
             type:"list",
             message:"Select employee: ",
             name: "option",
-            choices: ["J. Jonah Jameson", "Jenny Jones", "Domingo Chavez", "Jamaal Wilkes", "Giuseppe Garibaldi", "Vijaya Patel", "Joan Jett", "John Smith", "Bernie Madoff", "Canine St. Bernard", "Lois Lane", "Gil Chesterton", "Johnny Chan"]
+            choices: ["Jonah Jameson", "Jenny Jones", "Domingo Chavez", "Jamaal Wilkes", "Giuseppe Garibaldi", "Vijaya Patel", "Joan Jett", "John Smith", "Bernie Madoff", "Canine St. Bernard", "Lois Lane", "Gil Chesterton", "Johnny Chan"]
         },
         {
             type: "input",
