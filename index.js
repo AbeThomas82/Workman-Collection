@@ -108,7 +108,8 @@ function addEmployee(){
         //if the employee has no manager, set the manager to null
         if(response.manager === "None"){
             response.manager = null;
-        }
+        }else
+            response.manager
         
         db.query("INSERT INTO roster (first_name, last_name, roles, manager) VALUES (?,?,?,?);",[response.first_name,response.last_name,response.roles,response.manager],function(err,result){
             if(err) throw err;
@@ -164,25 +165,39 @@ function addRoles(){
 }
 
 function updateEmployee(){
+    db.query("SELECT * FROM employee_db.roster;",function(err,data){
+        let employeeArray = [];
+        if(err) throw err;
+        for(let i = 0; i < data.length; i++){
+            employeeArray.push(data[i].first_name + " " + data[i].last_name)
+        }
+        employeeArray.push("None")
+    db.query("SELECT * FROM employee_db.roster;",function(err,data){
+        let roleArray = [];
+        if(err) throw err;
+        for(let i = 0; i < data.length; i++){
+            roleArray.push(data[i].roles)
+        }
+        roleArray.push("None")
     inquirer.prompt([
         {
             type:"list",
             message:"Select employee: ",
             name: "option",
-            choices: ["Jonah Jameson", "Jenny Jones", "Domingo Chavez", "Jamaal Wilkes", "Giuseppe Garibaldi", "Vijaya Patel", "Joan Jett", "John Smith", "Bernie Madoff", "Canine St. Bernard", "Lois Lane", "Gil Chesterton", "Johnny Chan"]
+            choices: employeeArray
         },
         {
-            type: "input",
+            type: "list",
             message: "New position title: ",
-            name: "title"   
+            name: "option",
+            choices: roleArray   
         }
     ]).then(response =>{
-        let nameArray = response.option.split(" ");
-        console.log(nameArray);
-        db.query("INSERT INTO roster (first_name,last_name,roles) VALUES (?,?,?);",[nameArray[0],nameArray[1],response.title],function(err,result){
+        db.query("INSERT INTO roster (first_name,last_name,roles) VALUES (?,?,?);",[response.first_name,response.last_name,response.roles],function(err,result){
             if(err) throw err;
             console.log(result)
             start_menu()
         })
     })
 }
+    )})}
