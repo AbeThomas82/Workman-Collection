@@ -169,14 +169,14 @@ function updateEmployee(){
         let employeeArray = [];
         if(err) throw err;
         for(let i = 0; i < data.length; i++){
-            employeeArray.push(data[i].first_name + " " + data[i].last_name)
+            employeeArray.push({name:data[i].first_name + " " + data[i].last_name,value:data[i].id})
         }
         employeeArray.push("None")
     db.query("SELECT * FROM employee_db.roster;",function(err,data){
         let roleArray = [];
         if(err) throw err;
         for(let i = 0; i < data.length; i++){
-            roleArray.push(data[i].roles)
+            roleArray.push({name:data[i].roles,value:data[i].id})
         }
         roleArray.push("None")
     inquirer.prompt([
