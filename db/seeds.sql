@@ -1,4 +1,4 @@
-INSERT INTO departments (id, name)
+INSERT INTO department (id, name)
 VALUES
     (1, "Sales"),
     (2, "Information Technology"),
@@ -6,9 +6,9 @@ VALUES
     (4, "Human Resources"),
     (5, "Front Desk");
 
-SELECT * FROM departments;
+SELECT * FROM department;
 
-INSERT INTO roles (id, title, department, salary)
+INSERT INTO role(id, title, department, salary)
 VALUES
     (1, "Sales Lead", "Sales", 150000),
     (2, "Sr. Saleman", "Sales", 95000),
@@ -24,9 +24,9 @@ VALUES
     (12, "Head Receptionist", "Front Desk", 50000),
     (13, "Receptionist", "Front Desk", 35000);
 
-SELECT * FROM roles;
+SELECT * FROM role;
 
-INSERT INTO roster (id, first_name, last_name, roles, manager)
+INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
 VALUES
     (1, "Jonah", "Jameson",1, NULL),
     (2, "Jenny", "Jones",10, NULL),
@@ -42,4 +42,4 @@ VALUES
     (12, "Gil", "Chesterton", 9, 9),
     (13, "Johnny", "Chan", 3, 1);
 
-SELECT * FROM roster;
+SELECT * FROM employee;

@@ -53,21 +53,21 @@ function start_menu() {
 }
 
 function viewEmployees(){
-    db.query("SELECT * FROM employee_db.roster;",function(err,data){
+    db.query("SELECT * FROM employee_db.employee;",function(err,data){
         if(err) throw err;
         console.table(data)
         start_menu()
     })
 }
 function viewDepartments(){
-    db.query("SELECT * FROM employee_db.departments;",function(err,data){
+    db.query("SELECT * FROM employee_db.department;",function(err,data){
         if(err) throw err;
         console.table(data)
         start_menu()
     })
 }
 function viewRoles(){
-    db.query("SELECT * FROM employee_db.roles;",function(err,data){
+    db.query("SELECT * FROM employee_db.role;",function(err,data){
         if(err) throw err;
         console.table(data)
         start_menu()
@@ -75,7 +75,7 @@ function viewRoles(){
 }
 
 function addEmployee(){
-    db.query("SELECT * FROM employee_db.roster;",function(err,data){
+    db.query("SELECT * FROM employee_db.employee;",function(err,data){
         let managerArray = [];
         if(err) throw err;
         for(let i = 0; i < data.length; i++){
@@ -96,7 +96,7 @@ function addEmployee(){
         {
             type:"input",
             message:"Enter employee role: ",
-            name:"roles",
+            name:"role",
         },
         {
             type:"list",
@@ -111,7 +111,7 @@ function addEmployee(){
         }else
             response.manager
         
-        db.query("INSERT INTO roster (first_name, last_name, roles, manager) VALUES (?,?,?,?);",[response.first_name,response.last_name,response.roles,response.manager],function(err,result){
+        db.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?);",[response.first_name,response.last_name,response.role,response.manager],function(err,result){
             if(err) throw err;
             console.log(result)
             start_menu()
@@ -129,7 +129,7 @@ function addDepartment(){
 
         }
     ]).then(response =>{
-        db.query("INSERT INTO departments (name) VALUES (?);",response.department,function(err,result){
+        db.query("INSERT INTO department (name) VALUES (?);",response.department,function(err,result){
             if(err) throw err;
             console.log(result)
             start_menu()
@@ -156,7 +156,7 @@ function addRoles(){
             name:"salary"
         }
     ]).then(response =>{
-        db.query("INSERT INTO roles (title, department, salary) VALUES (?,?,?);",[response.title,response.department,response.salary],function(err,result){
+        db.query("INSERT INTO role (title, department, salary) VALUES (?,?,?);",[response.title,response.department,response.salary],function(err,result){
             if(err) throw err;
             console.log(result)
             start_menu()
@@ -165,18 +165,18 @@ function addRoles(){
 }
 
 function updateEmployee(){
-    db.query("SELECT * FROM employee_db.roster;",function(err,data){
+    db.query("SELECT * FROM employee_db.employee;",function(err,data){
         let employeeArray = [];
         if(err) throw err;
         for(let i = 0; i < data.length; i++){
             employeeArray.push({name:data[i].first_name + " " + data[i].last_name,value:data[i].id})
         }
         employeeArray.push("None")
-    db.query("SELECT * FROM employee_db.roster;",function(err,data){
+    db.query("SELECT * FROM employee_db.role;",function(err,data){
         let roleArray = [];
         if(err) throw err;
         for(let i = 0; i < data.length; i++){
-            roleArray.push({name:data[i].roles,value:data[i].id})
+            roleArray.push({name:data[i].title,value:data[i].id})
         }
         roleArray.push("None")
     inquirer.prompt([
@@ -189,15 +189,16 @@ function updateEmployee(){
         {
             type: "list",
             message: "New position title: ",
-            name: "option",
+            name: "roles",
             choices: roleArray   
         }
     ]).then(response =>{
-        db.query("INSERT INTO roster (first_name,last_name,roles) VALUES (?,?,?);",[response.first_name,response.last_name,response.roles],function(err,result){
+        db.query(`UPDATE employee SET role = ${response.roles} WHERE id = ${response.option}`,function(err,result){
             if(err) throw err;
             console.log(result)
             start_menu()
         })
     })
 }
-    )})}
+    )}
+)}

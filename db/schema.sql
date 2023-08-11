@@ -2,22 +2,22 @@ DROP DATABASE IF EXISTS employee_db;
 CREATE DATABASE employee_db;
 USE employee_db;
 
-CREATE TABLE departments(
+CREATE TABLE department(
     id INT NOT NULL AUTO_INCREMENT primary key,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE roles(
+CREATE TABLE role(
     id INT NOT NULL AUTO_INCREMENT primary key,
-    title VARCHAR(255) NOT NULL,
+    title VARCHAR(30) NOT NULL,
     department VARCHAR(255) NOT NULL references departments(id) ,
-    salary INT NOT NULL
+    salary DECIMAL NOT NULL
 );
 
-CREATE TABLE roster(
+CREATE TABLE employee(
     id INT NOT NULL AUTO_INCREMENT primary key,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
-    roles INT references roles(id),
-    manager INT references roster(id) ON DELETE SET NULL
+    role_id INT references roles(id),
+    manager_id INT references roster(id) ON DELETE SET NULL
 );
