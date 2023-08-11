@@ -79,7 +79,7 @@ function addEmployee(){
         let managerArray = [];
         if(err) throw err;
         for(let i = 0; i < data.length; i++){
-            managerArray.push(data[i].first_name + " " + data[i].last_name)
+            managerArray.push({name:data[i].first_name + " " + data[i].last_name,value:data[i].id})
         }
         managerArray.push("None")
     inquirer.prompt([
