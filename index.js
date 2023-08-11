@@ -82,6 +82,13 @@ function addEmployee(){
             managerArray.push({name:data[i].first_name + " " + data[i].last_name,value:data[i].id})
         }
         managerArray.push("None")
+    db.query("SELECT * FROM employee_db.role;",function(err,data){
+        let roleArray1 = [];
+        if(err) throw err;
+        for(let i = 0; i < data.length; i++){
+            roleArray1.push({name:data[i].title,value:data[i].id})
+        }
+        roleArray1.push("None")
     inquirer.prompt([
         {
             type:"input",
@@ -94,9 +101,10 @@ function addEmployee(){
             name:"last_name",
         },
         {
-            type:"input",
+            type:"list",
             message:"Enter employee role: ",
             name:"role",
+            choices: roleArray1
         },
         {
             type:"list",
@@ -113,13 +121,13 @@ function addEmployee(){
         
         db.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?);",[response.first_name,response.last_name,response.role,response.manager],function(err,result){
             if(err) throw err;
-            console.log(result)
+            console.table(result)
             start_menu()
         })
     })
 }
 )}
-
+    )}
 function addDepartment(){
     inquirer.prompt([
         {
@@ -131,7 +139,7 @@ function addDepartment(){
     ]).then(response =>{
         db.query("INSERT INTO department (name) VALUES (?);",response.department,function(err,result){
             if(err) throw err;
-            console.log(result)
+            console.table(result)
             start_menu()
         })
     })
@@ -158,7 +166,7 @@ function addRoles(){
     ]).then(response =>{
         db.query("INSERT INTO role (title, department, salary) VALUES (?,?,?);",[response.title,response.department,response.salary],function(err,result){
             if(err) throw err;
-            console.log(result)
+            console.table(result)
             start_menu()
         })
     })
@@ -173,12 +181,12 @@ function updateEmployee(){
         }
         employeeArray.push("None")
     db.query("SELECT * FROM employee_db.role;",function(err,data){
-        let roleArray = [];
+        let roleArray2 = [];
         if(err) throw err;
         for(let i = 0; i < data.length; i++){
-            roleArray.push({name:data[i].title,value:data[i].id})
+            roleArray2.push({name:data[i].title,value:data[i].id})
         }
-        roleArray.push("None")
+        roleArray2.push("None")
     inquirer.prompt([
         {
             type:"list",
@@ -190,12 +198,12 @@ function updateEmployee(){
             type: "list",
             message: "New position title: ",
             name: "roles",
-            choices: roleArray   
+            choices: roleArray2   
         }
     ]).then(response =>{
-        db.query(`UPDATE employee SET role = ${response.roles} WHERE id = ${response.option}`,function(err,result){
+        db.query(`UPDATE employee SET role_id = ${response.roles} WHERE id = ${response.option}`,function(err,result){
             if(err) throw err;
-            console.log(result)
+            console.table(result)
             start_menu()
         })
     })
